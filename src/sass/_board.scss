@@ -1,0 +1,51 @@
+$x_color: #009688;
+$o_color: #2196F3;
+
+.board {
+    display: grid;
+    grid-template-rows: repeat(3, 75px);
+    grid-template-columns: repeat(3, 75px);
+    grid-gap: 10px;
+
+    &:not(.complete) .tile {
+        &:not(.filled) {
+            &:hover,
+            &:focus {
+                background: #aaa;
+            }
+        }
+    }
+
+    .tile {
+        background: #ddd;
+        border-radius: 10px;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        will-change: transform;
+        outline: none;
+        transition: transform 400ms ease,
+                    box-shadow 400ms ease,
+                    background 400ms ease;
+
+        // class added to tile when it is filled with a value
+        &.filled {
+            transform: translateY(-3px);
+
+            &.x-filled {
+                background: $x_color;
+                box-shadow: 0 3px darken($x_color, 15);
+            }
+
+            &.o-filled {
+                background: $o_color;
+                box-shadow: 0 3px darken($o_color, 15);
+            }
+        }
+
+        .symbol {
+            font-size: 32px;
+        }
+    }
+}
