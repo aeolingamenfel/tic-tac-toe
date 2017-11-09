@@ -1,21 +1,35 @@
 import {GameStatus} from "GameStatus";
 import {GameBoard} from "GameBoard";
 
+/**
+ * Enum representing the possible states for the turn status.
+ */
 const TURN_STATUS = {
     X_TURN: 0,
     O_TURN: 1
 };
 
+/**
+ * Enum containing the ID numbers for all players.
+ */
 const PLAYERS = {
     X: 1,
     O: 2
 };
 
+/**
+ * Enum used to set and retrieve the state of the game. Represents all possible
+ * states of the game.
+ */
 const GAME_STATES = {
     ACTIVE: 0,
     COMPLETE: 1
 };
 
+/**
+ * Main controller/manager for the game. Actually contains game logic and 
+ * interop between UI elements and game state.
+ */
 export class TicTacToeGame {
 
     constructor() {
@@ -31,6 +45,10 @@ export class TicTacToeGame {
         this.bind();
     }
 
+    /**
+     * Binds up all events in UI to listening functions on this class to know 
+     * when UI elements were interacted with.
+     */
     bind() {
         this.board.addTileClickListener((tile) => {
             this.tileClicked(tile);
@@ -41,6 +59,11 @@ export class TicTacToeGame {
         });
     }
 
+    /**
+     * Called automatically when any tile on the board is clicked.
+     * 
+     * @param {GameTile} tile The tile that was clicked. 
+     */
     tileClicked(tile) {
         // Don't do anything if the tile is already filled, or the game isn't 
         // running.
@@ -52,10 +75,16 @@ export class TicTacToeGame {
         this.placeSymbol(tile);
     }
 
+    /**
+     * Called automatically when the board reset button is clicked.
+     */
     resetButtonClicked() {
         this.reset();
     }
 
+    /**
+     * Resets the game state and the UI so a new game can be played.
+     */
     reset() {
         // reset turn
         this.turn = TURN_STATUS.O_TURN;
@@ -80,6 +109,11 @@ export class TicTacToeGame {
         }
     }
 
+    /**
+     * Places an X or an O (depending on the current turn) on the given tile.
+     * 
+     * @param {GameTile} tile The tile to place the X or O on. 
+     */
     placeSymbol(tile) {
         // fill the appropriate square
         this.fillSquare(tile.x, tile.y, this.getFillValueForTurn());
@@ -122,6 +156,8 @@ export class TicTacToeGame {
             return;
         }
 
+        // If there's no winning player, check to make sure that if the board is
+        // full, the game still completes.
         if(this.isBoardFull()) {
             this.completeGame();
         }
@@ -136,6 +172,11 @@ export class TicTacToeGame {
         this.board.setComplete();
     }
 
+    /**
+     * Determines whether the game board is completely full with set X's or O's.
+     * 
+     * @returns {Boolean}
+     */
     isBoardFull() {
         let filledCount = 0;
         const totalCount = TicTacToeGame.BOARD_HEIGHT * TicTacToeGame.BOARD_WIDTH;
@@ -221,6 +262,7 @@ export class TicTacToeGame {
             endX = x + 3;
         }
 
+        // skip any diagonal that goes off the board
         if(!this.isValidCoordinates(goLeft ? endX + 1 : endX - 1, endY - 1)) {
             return null;
         }
@@ -476,10 +518,16 @@ export class TicTacToeGame {
         return true;
     }
 
+    /**
+     * Width of game board to use in calculations.
+     */
     static get BOARD_WIDTH() {
         return 3;
     }
 
+    /**
+     * Height of game board to use in calculations.
+     */
     static get BOARD_HEIGHT() {
         return 3;
     }

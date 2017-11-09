@@ -1,6 +1,9 @@
 import {GameTile} from "GameTile";
 import {ResetButton} from "ResetButton";
 
+/**
+ * UI controller that manages and exposes an API for the game board itself.
+ */
 export class GameBoard {
 
     constructor() {
@@ -12,10 +15,23 @@ export class GameBoard {
         this.setupTiles();
     }
 
+    /**
+     * Adds a callback that will be called when a tile is clicked. The tile that 
+     * is clicked will be passed to the callback.
+     * 
+     * @param {Function} callback The function to be called when any tile is 
+     *  clicked.
+     */
     addTileClickListener(callback) {
         this.tileClickListeners.push(callback);
     }
 
+    /**
+     * Notifies all tile click listeners that a tile was clicked. Must pass in 
+     * the tile that was clicked to pass through to the listeners.
+     * 
+     * @param {GameTile} tile The tile that should be sent to listeners. 
+     */
     notifyTileClickListeners(tile) {
         for(let x = 0; x < this.tileClickListeners.length; x++) {
             const callback = this.tileClickListeners[x];
@@ -24,6 +40,9 @@ export class GameBoard {
         }
     }
 
+    /**
+     * Locates, stores, and binds events to all the tiles on the game board.
+     */
     setupTiles() {
         const tileElements = this.element.querySelectorAll(".tile");
 
@@ -58,11 +77,17 @@ export class GameBoard {
         this.notifyTileClickListeners(tile);
     }
 
+    /**
+     * Sets the board to its "complete" state.
+     */
     setComplete() {
         this.element.classList.add(GameBoard.COMPLETE_CLASS);
         this.resetButton.show();
     }
 
+    /**
+     * Resets the board (and all tiles on the board) for a fresh game.
+     */
     reset() {
         let tilesList = null;
         let tile = null;
@@ -81,6 +106,10 @@ export class GameBoard {
         }
     }
 
+    /**
+     * CSS class applied to the board wrapper to indicate that the game is
+     * complete.
+     */
     static get COMPLETE_CLASS() {
         return "complete";
     }

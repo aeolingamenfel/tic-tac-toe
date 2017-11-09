@@ -1,3 +1,6 @@
+/**
+ * Wrapper for the game status flipping card.
+ */
 export class GameStatus {
 
     constructor() {
@@ -13,6 +16,10 @@ export class GameStatus {
         this.isFlipped = this.pill.classList.toggle(GameStatus.FLIP_CLASS);
     }
 
+    /**
+     * CSS class to be applied to the flipping "pill" part of the game status
+     * indicator to flip it.
+     */
     static get FLIP_CLASS() {
         return "flip";
     }
