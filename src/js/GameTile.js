@@ -30,6 +30,11 @@ export class GameTile {
         this.element.classList.add("filled", "x-filled");
     }
 
+    reset() {
+        this.setSymbol("");
+        this.element.classList.remove("filled", "x-filled", "o-filled");
+    }
+
     /**
      * Sets the value of the symbol element in the tile.
      * 

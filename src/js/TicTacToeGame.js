@@ -35,6 +35,10 @@ export class TicTacToeGame {
         this.board.addTileClickListener((tile) => {
             this.tileClicked(tile);
         });
+
+        this.board.resetButton.addClickListener(() => {
+            this.resetButtonClicked();
+        });
     }
 
     tileClicked(tile) {
@@ -46,6 +50,34 @@ export class TicTacToeGame {
         }
 
         this.placeSymbol(tile);
+    }
+
+    resetButtonClicked() {
+        this.reset();
+    }
+
+    reset() {
+        // reset turn
+        this.turn = TURN_STATUS.O_TURN;
+
+        // reset game state
+        this.gameState = GAME_STATES.ACTIVE;
+
+        // reset game board
+        for(let x = 0; x < TicTacToeGame.BOARD_WIDTH; x++) {
+            for(let y = 0; y < TicTacToeGame.BOARD_HEIGHT; y++) {
+                if(this.boardState[x]) {
+                    this.boardState[x][y] = null;
+                }
+            }
+        }
+
+        // reset UI
+        this.board.reset();
+
+        if(this.status.isFlipped) {
+            this.status.flip();
+        }
     }
 
     placeSymbol(tile) {

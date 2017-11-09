@@ -1,9 +1,11 @@
 import {GameTile} from "GameTile";
+import {ResetButton} from "ResetButton";
 
 export class GameBoard {
 
     constructor() {
         this.element = window.board;
+        this.resetButton = new ResetButton();
         this.tiles = [];
         this.tileClickListeners = [];
 
@@ -58,6 +60,25 @@ export class GameBoard {
 
     setComplete() {
         this.element.classList.add(GameBoard.COMPLETE_CLASS);
+        this.resetButton.show();
+    }
+
+    reset() {
+        let tilesList = null;
+        let tile = null;
+
+        this.element.classList.remove(GameBoard.COMPLETE_CLASS);
+        this.resetButton.hide();
+
+        for(let x = 0; x < this.tiles.length; x++) {
+            tilesList = this.tiles[x];
+
+            for(let y = 0; y < tilesList.length; y++) {
+                tile = tilesList[y];
+
+                tile.reset();
+            }
+        }
     }
 
     static get COMPLETE_CLASS() {
