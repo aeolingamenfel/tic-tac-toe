@@ -17,6 +17,7 @@ $reset_color: #555;
     width: $reset_size;
     border-radius: $reset_size;
     outline: none;
+    padding: 0;
     opacity: 0;
     transform: translateY(2px);
     box-shadow: 0 0 darken($reset_color, 15);

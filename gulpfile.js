@@ -44,6 +44,7 @@ gulp.task("build-css", function() {
 gulp.task("build-js", function() {
     return gulp.src(JS_SOURCES)
         .pipe(webpack(require("./webpack.config.js"), webpack3))
+        .pipe(uglify())
         .pipe(gulp.dest("build/js/"));
 });
 

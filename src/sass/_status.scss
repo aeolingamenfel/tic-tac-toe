@@ -28,6 +28,7 @@
                 will-change: transform;
                 transition: transform 400ms ease-out;
                 backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
                 border-radius: 20px;
                 color: #fff;
                 padding: 5px;

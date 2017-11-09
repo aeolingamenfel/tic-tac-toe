@@ -119,6 +119,11 @@ export class TicTacToeGame {
 
         if(winningPlayer) {
             this.completeGame();
+            return;
+        }
+
+        if(this.isBoardFull()) {
+            this.completeGame();
         }
     }
 
@@ -129,6 +134,21 @@ export class TicTacToeGame {
     completeGame() {
         this.gameState = GAME_STATES.COMPLETE;
         this.board.setComplete();
+    }
+
+    isBoardFull() {
+        let filledCount = 0;
+        const totalCount = TicTacToeGame.BOARD_HEIGHT * TicTacToeGame.BOARD_WIDTH;
+
+        for(let x = 0; x < TicTacToeGame.BOARD_WIDTH; x++) {
+            for(let y = 0; y < TicTacToeGame.BOARD_HEIGHT; y++) {
+                if(this.boardState[x] && this.boardState[x][y]) {
+                    filledCount += 1;
+                }
+            }
+        }
+
+        return filledCount >= totalCount;
     }
 
     /**
