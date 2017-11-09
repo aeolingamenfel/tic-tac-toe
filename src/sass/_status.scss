@@ -2,6 +2,7 @@
     margin: 0 0 20px;
     display: flex;
     justify-content: center;
+    font-family: $font_roboto;
 
     .status-pill {
         display: flex;
@@ -33,11 +34,11 @@
             }
 
             .side-1 {
-                background: #2196F3;
+                background: $o_color;
             }
 
             .side-2 {
-                background: #009688;
+                background: $x_color;
             }
 
             .side-2 {
